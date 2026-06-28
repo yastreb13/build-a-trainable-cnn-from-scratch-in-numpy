@@ -105,7 +105,7 @@ def im2col(images, kernel_h, kernel_w, stride, padding):
     images=pad_2d(images,padding)
     H_out=output_spatial_size(H,kernel_h,stride,padding)
     W_out=output_spatial_size(W,kernel_w,stride,padding)
-    out = np.zeros((N * H_out * W_out, C * kernel_h * kernel_w))
+    out = np.zeros((N * H_out * W_out, C * kernel_h * kernel_w), dtype=images.dtype)
     row_idx = 0
     for n in range(N):
         for y in range(H_out):
@@ -117,7 +117,7 @@ def im2col(images, kernel_h, kernel_w, stride, padding):
                     patch=images[n,:,y_start:y_end,x_start:x_end]
                     out[row_idx, :] = patch.flatten()
                     row_idx += 1
-    return out.astype(int)
+    return out
 
 # Step 16 - col2im
 def col2im(cols, input_shape, kernel_h, kernel_w, stride, padding):
@@ -142,8 +142,32 @@ def col2im(cols, input_shape, kernel_h, kernel_w, stride, padding):
     else:
         return padded_images
 
-# Step 17 - conv2d_forward (not yet solved)
-# TODO: implement
+# Step 17 - conv2d_forward
+import numpy as np
+
+def conv2d_forward(x, weights, bias, stride, padding):
+    np.random.seed(0)
+    N, C, H, W = x.shape
+    F, C_w, kernel_h, kernel_w = weights.shape
+    out_h = (H + 2 * padding - kernel_h) // stride + 1
+    out_w = (W + 2 * padding - kernel_w) // stride + 1
+    cols = im2col(x, kernel_h, kernel_w, stride, padding)
+    weights_flat = weights.reshape(F, -1)
+    out_2d = np.dot(cols, weights_flat.T) 
+    out_2d += bias
+    out_4d = out_2d.reshape(N, out_h, out_w, F)
+    out = out_4d.transpose(0, 3, 1, 2)
+    cache = {
+        'x_shape': x.shape,
+        'weights': weights,
+        'cols': cols,
+        'stride': stride,
+        'padding': padding,
+        'kernel_h': kernel_h,
+        'kernel_w': kernel_w
+    }
+    
+    return out, cache
 
 # Step 18 - conv2d_grad_input (not yet solved)
 # TODO: implement

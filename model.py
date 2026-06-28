@@ -89,8 +89,14 @@ import numpy as np
 def init_zero_bias(length):
     return np.zeros((length,)).T
 
-# Step 13 - pad_2d (not yet solved)
-# TODO: implement
+# Step 13 - pad_2d
+def pad_2d(images, pad):
+    if pad == 0:
+        return images
+    N, C, H, W = images.shape
+    padded = np.zeros((N, C, H + 2*pad, W + 2*pad), dtype=images.dtype)
+    padded[:, :, pad:pad+H, pad:pad+W] = images
+    return padded
 
 # Step 14 - output_spatial_size (not yet solved)
 # TODO: implement

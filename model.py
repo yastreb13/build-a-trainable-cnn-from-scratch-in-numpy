@@ -95,8 +95,9 @@ def pad_2d(images, pad):
         return images
     return np.pad(images,((0,0),(0,0),(pad,pad),(pad,pad)),mode='constant')
 
-# Step 14 - output_spatial_size (not yet solved)
-# TODO: implement
+# Step 14 - output_spatial_size
+def output_spatial_size(input_size, kernel, stride=1, padding=0):
+    return int((input_size-kernel+2*padding)/stride+1)
 
 # Step 15 - im2col (not yet solved)
 # TODO: implement

@@ -245,8 +245,28 @@ def scatter_grad_window(grad_value, argmax_index, kernel):
     out[y][x]=grad_value
     return out
 
-# Step 24 - maxpool2d_backward (not yet solved)
-# TODO: implement
+# Step 24 - maxpool2d_backward
+def maxpool2d_backward(d_out, cache):
+    N,C,H,W=cache['x_shape']
+    argmax=cache['argmax']
+    kernel=cache['kernel']
+    stride=cache['stride']
+    out_h=output_spatial_size(H, kernel, stride, padding=0)
+    out_w=output_spatial_size(W, kernel, stride, padding=0)
+    dx = np.zeros((N,C,H,W))
+    for n in range(N):
+        for c in range(C):
+            for y in range(out_h):
+                for x in range(out_w):
+                    y_start = y * stride
+                    y_end = y_start + kernel
+                    x_start = x * stride
+                    x_end = x_start + kernel
+                    grad_val = d_out[n, c, y, x]
+                    idx = argmax[n, c, y, x]
+                    window_grad = scatter_grad_window(grad_val, idx, kernel)
+                    dx[n, c, y_start:y_end, x_start:x_end] += window_grad        
+    return dx
 
 # Step 25 - relu_forward (not yet solved)
 # TODO: implement

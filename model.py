@@ -299,7 +299,7 @@ def maxpool2d_backward(d_out, cache):
 def softmax_cross_entropy_forward(logits, y):
     probs = stable_softmax(logits)
     loss = cross_entropy_loss(probs, y)
-    return float(loss)
+    return float(loss)+0.0
 
 # Step 35 - softmax_cross_entropy_backward (not yet solved)
 # TODO: implement

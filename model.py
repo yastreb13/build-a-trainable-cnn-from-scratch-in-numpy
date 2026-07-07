@@ -270,9 +270,8 @@ def maxpool2d_backward(d_out, cache):
 
 # Step 25 - relu_forward
 def relu_forward(x):
-    y=x.copy()
     cache={
-        'x': y
+        'x': x.copy()
     }
     mask=x>0
     x[~mask]=0

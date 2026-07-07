@@ -300,8 +300,13 @@ def flatten_backward(d_out, cache):
     N,C,H,W=cache['x_shape']
     return d_out.reshape(N,C,H,W)
 
-# Step 29 - linear_forward (not yet solved)
-# TODO: implement
+# Step 29 - linear_forward
+def linear_forward(x, weights, bias):
+    cache={
+        'x': x.copy(),
+        'weights': weights.copy()
+    }
+    return x@weights+bias, cache
 
 # Step 30 - linear_grad_input (not yet solved)
 # TODO: implement

@@ -268,8 +268,15 @@ def maxpool2d_backward(d_out, cache):
                     dx[n, c, y_start:y_end, x_start:x_end] += window_grad        
     return dx
 
-# Step 25 - relu_forward (not yet solved)
-# TODO: implement
+# Step 25 - relu_forward
+def relu_forward(x):
+    y=x.copy()
+    cache={
+        'x': y
+    }
+    mask=x>0
+    x[~mask]=0
+    return x, cache
 
 # Step 26 - relu_backward (not yet solved)
 # TODO: implement

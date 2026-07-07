@@ -410,8 +410,17 @@ def init_conv_layer(out_channels, in_channels, kernel_size, seed=0):
     }
     return dicti
 
-# Step 43 - init_linear_layer (not yet solved)
-# TODO: implement
+# Step 43 - init_linear_layer
+def init_linear_layer(in_features, out_features, seed=0):
+    # TODO: return {'W': He-init matrix (in_features, out_features), 'b': zero bias (out_features,)}
+    b=init_zero_bias(out_features)
+    fan_in = in_features
+    W=he_init((in_features, out_features),fan_in,seed=seed)
+    dicti={
+        'W':W,
+        'b':b
+    }
+    return dicti
 
 # Step 44 - init_lenet (not yet solved)
 # TODO: implement

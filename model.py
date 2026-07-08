@@ -537,8 +537,11 @@ def lenet_backward(dlogits, cache):
         'fc2': classifier['fc2']
     }
 
-# Step 51 - lenet_predict (not yet solved)
-# TODO: implement
+# Step 51 - lenet_predict
+def lenet_predict(x, params):
+    # TODO: Return the argmax class index per sample from a LeNet forward pass.
+    logits, _ = lenet_forward(x, params)
+    return argmax_rows(logits)
 
 # Step 52 - build_synthetic_image_dataset (not yet solved)
 # TODO: implement

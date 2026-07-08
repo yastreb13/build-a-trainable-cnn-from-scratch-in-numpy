@@ -437,8 +437,19 @@ def init_lenet(in_channels, num_classes, seed=0):
     }
     return result
 
-# Step 45 - forward_conv_block (not yet solved)
-# TODO: implement
+# Step 45 - forward_conv_block
+def forward_conv_block(x, W, b, pool_size, stride, pad):
+    # TODO: run conv2d -> relu -> maxpool2d and return (out, cache_dict)
+    conv_out, conv_cache = conv2d_forward(x, W, b, stride, pad)
+    relu_out, relu_cache = relu_forward(conv_out)
+    pool_out, pool_cache = maxpool2d_forward(relu_out, pool_size, pool_size)
+    cache = {
+        'conv_cache': conv_cache,
+        'relu_cache': relu_cache,
+        'pool_cache': pool_cache
+    }
+    
+    return pool_out, cache
 
 # Step 46 - forward_classifier_block (not yet solved)
 # TODO: implement

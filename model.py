@@ -546,8 +546,16 @@ def lenet_predict(x, params):
 # Step 52 - build_synthetic_image_dataset (not yet solved)
 # TODO: implement
 
-# Step 53 - shuffle_indices (not yet solved)
-# TODO: implement
+# Step 53 - shuffle_indices
+import numpy as np
+
+def shuffle_indices(n, seed=0):
+    # TODO: return a reproducible permutation of [0, n) as an int ndarray of shape (n,).
+    x=np.linspace(0, n - 1, num=n, dtype=int)
+    rng = np.random.RandomState(seed)
+    rng.shuffle(x)
+    
+    return x
 
 # Step 54 - train_test_split (not yet solved)
 # TODO: implement

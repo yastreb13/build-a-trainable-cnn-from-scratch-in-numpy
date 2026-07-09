@@ -584,6 +584,9 @@ def train_test_split(x, y, test_fraction=0.2, seed=0):
 # Step 58 - train_loop (not yet solved)
 # TODO: implement
 
-# Step 59 - evaluate (not yet solved)
-# TODO: implement
+# Step 59 - evaluate
+def evaluate(params, x, y):
+    # TODO: return the fraction of samples whose predicted class equals the label.
+    y_hat=lenet_predict(x, params)  # Already returns argmax class indices
+    return float(np.mean(y_hat == y))
 

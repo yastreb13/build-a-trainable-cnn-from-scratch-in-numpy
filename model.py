@@ -594,8 +594,32 @@ def iterate_minibatches(x, y, batch_size, seed=0):
         batch_indices=indices[start:end]
         yield x[batch_indices], y[batch_indices]
 
-# Step 56 - train_step (not yet solved)
-# TODO: implement
+# Step 56 - train_step
+# ── Step 056  train_step ──
+def train_step(params, opt_state, xb, yb, lr, beta_one, beta_two, eps, step):
+    logits, cache=lenet_forward(xb, params)
+    loss=softmax_cross_entropy_forward(logits, yb)
+    
+    dlogits=softmax_cross_entropy_backward(logits, yb)
+    grads=lenet_backward(dlogits, cache)
+    new_params={}
+    new_opt_state={}
+    for layer_name in params:
+        new_params[layer_name]={}
+        new_opt_state[layer_name]={}
+        for p_name in params[layer_name]:
+            param=params[layer_name][p_name]
+            grad=grads[layer_name]['d'+p_name]
+            
+            m=opt_state[layer_name][p_name]['m']
+            v=opt_state[layer_name][p_name]['v']
+            
+            new_p, new_m, new_v=adam_step(param, grad, m, v, step, lr, beta_one, beta_two, eps)
+            
+            new_params[layer_name][p_name]=new_p
+            new_opt_state[layer_name][p_name]={'m': new_m, 'v': new_v}
+            
+    return new_params, new_opt_state, loss
 
 # Step 57 - train_one_epoch (not yet solved)
 # TODO: implement

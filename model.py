@@ -632,8 +632,26 @@ def train_one_epoch(params, opt_state, x, y, batch_size, lr, beta_one, beta_two,
         losses.append(loss)
     return params, opt_state, step_counter, losses
 
-# Step 58 - train_loop (not yet solved)
-# TODO: implement
+# Step 58 - train_loop
+def train_loop(params, x_train, y_train, num_epochs, batch_size, lr=1e-3, beta_one=0.9, beta_two=0.999, eps=1e-8, seed=0):
+    opt_state={}
+    for layer in params:
+        opt_state[layer]={}
+        for p in params[layer]:
+            opt_state[layer][p]={
+                'm': np.zeros_like(params[layer][p]),
+                'v': np.zeros_like(params[layer][p])
+            }
+    step_counter=0
+    all_losses=[]
+    for epoch in range(num_epochs):
+        current_seed=seed+epoch
+        params, opt_state, step_counter, epoch_losses=train_one_epoch(
+            params, opt_state, x_train, y_train, batch_size, lr, beta_one, beta_two, eps, step_counter, current_seed
+        )
+        all_losses.extend(epoch_losses)
+        
+    return params, all_losses
 
 # Step 59 - evaluate
 def evaluate(params, x, y):

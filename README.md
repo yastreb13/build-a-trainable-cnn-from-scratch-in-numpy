@@ -1,7 +1,5 @@
-# Build a Trainable CNN from Scratch in NumPy
-
-Assemble a LeNet-style convolutional network entirely in NumPy, from numerically stable softmax and im2col-based convolutions all the way to an Adam-driven training loop. By the end you will have every layer, gradient, and optimizer wired into a working classifier you can train on synthetic images.
-
+# Собрал свёрточную сеть в стиле LeNet на чистом NumPy
+- от устойчивого softmax и im2col-свёрток до тренировочного цикла с Adam. Реализованы все слои, градиенты и оптимизатор, сеть обучается на синтетических картинках. Код полностью рабочий, без фреймворков. Архитектура и вся числодробилка на NumPy — мои, а оформление проекта (README, html-визуализация и файл scaffold.py) сделал сайт, включая вёрстку сайта со схемой сети.
 ## How to run
 
 ```bash
